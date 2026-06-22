@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import img1 from '@/public/newprofile.jpeg'
+import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL, siteConfig } from "@/lib/site.lib";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,9 +73,28 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
-  metadataBase: new URL("https://yugsingh.com"),
+  alternates: {
+    canonical: "/",
+  },
+
+  // GEO SEO — location signals for local & map discovery.
+  other: {
+    "geo.region": siteConfig.geo.region,
+    "geo.placename": siteConfig.geo.placename,
+    "geo.position": `${siteConfig.geo.latitude};${siteConfig.geo.longitude}`,
+    ICBM: `${siteConfig.geo.latitude}, ${siteConfig.geo.longitude}`,
+  },
+
+  metadataBase: new URL(SITE_URL),
 };
 
 
@@ -87,7 +108,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white">{children}</body>
+      <body className="min-h-full flex flex-col bg-white">
+        <JsonLd />
+        {children}
+      </body>
     </html>
   );
 }

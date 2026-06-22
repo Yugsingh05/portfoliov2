@@ -16,7 +16,7 @@ const containerVariants = {
 
 const MyJourney = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-white px-4 py-16 text-zinc-900 md:px-20 md:py-24">
+    <section id="experience" className="relative w-full overflow-hidden bg-white px-4 py-16 text-zinc-900 md:px-20 md:py-24">
       {/* Ambient background glow */}
      
 
